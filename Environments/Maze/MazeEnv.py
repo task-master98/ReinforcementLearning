@@ -7,7 +7,9 @@ TODO:
 -----------------------------------------
 ChangeLog
 -----------------------------------------
-
+=> Version 0.0
+    -> Simple Maze Environment
+    -> Loops: Multiple paths supported
 -----------------------------------------
 """
 import numpy as np
