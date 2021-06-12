@@ -23,6 +23,7 @@ class Maze:
         'E': (1, 0),
         'W': (-1, 0)
     }
+    DIR_PATH = os.path.dirname(__file__)
 
     def __init__(self, maze_cells=None, maze_size=(10, 10), has_loops=True, num_portals=0):
         # Maze variables
@@ -76,8 +77,8 @@ class Maze:
         #     self.__set_random_portals(self.num_portals, 2)
 
     def __break_random_walls(self, percent):
-        num_cells_to_break = int(round(self.getMazeH*self.getMazeW*percent))
-        cell_ids = random.sample(range(self.getMazeW*self.getMazeW), num_cells_to_break)
+        num_cells_to_break = int(round(self.getMazeH * self.getMazeW * percent))
+        cell_ids = random.sample(range(self.getMazeW * self.getMazeW), num_cells_to_break)
 
         for cell_id in cell_ids:
             x = cell_id % self.getMazeW
@@ -160,6 +161,20 @@ class Maze:
     def all_walls_intact(cell):
         return cell & 0xF == 0
 
+    def save_maze(self, file_name):
+        dir_path = os.path.join(self.DIR_PATH, 'Examples')
+        try:
+            os.makedirs(dir_path)
+        except FileExistsError:
+            pass
+        file_name = os.path.join(dir_path, file_name)
+        np.save(file_name, self.maze_cells, allow_pickle=False, fix_imports=True)
 
-
-
+    @classmethod
+    def load_maze(cls, file_name):
+        parent_path = os.path.join(cls.DIR_PATH, 'Examples')
+        file_path = os.path.join(parent_path, file_name)
+        if not os.path.exists(file_path):
+            raise ValueError('File Does Not Exist')
+        else:
+            return np.load(file_path, allow_pickle=False, fix_imports=True)
