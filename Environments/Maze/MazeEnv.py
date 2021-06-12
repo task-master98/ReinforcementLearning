@@ -97,7 +97,14 @@ class Maze:
         return not self.is_open(cell_id, dir) and self.is_within_bounds(x1, y1)
 
     def is_open(self, cell_id, dir):
-        pass
+        x1 = cell_id[0] + self.DIRECTIONS[dir][0]
+        y1 = cell_id[1] + self.DIRECTIONS[dir][1]
+
+        if self.is_within_bounds(x1, y1):
+            this_wall = bool(self.get_walls_status(self.maze_cells[cell_id[0], cell_id[1]])[dir])
+            other_wall = bool(self.get_walls_status(self.maze_cells[x1, y1])[self.__get_opposite_wall(dir)])
+            return this_wall or other_wall
+        return False
 
     def is_within_bounds(self, x, y):
         return 0 <= x < self.getMazeW and 0 <= y < self.getMazeH
