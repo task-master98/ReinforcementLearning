@@ -156,6 +156,10 @@ class Maze:
     def getMazeH(self):
         return int(self.maze_size[1])
 
+    @staticmethod
+    def all_walls_intact(cell):
+        return cell & 0xF == 0
+
 
 
 
