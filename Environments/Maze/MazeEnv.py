@@ -72,8 +72,8 @@ class Maze:
         if self.has_loops:
             self.__break_random_walls(0.2)
 
-        if self.num_portals > 0:
-            self.__set_random_portals(self.num_portals, 2)
+        # if self.num_portals > 0:
+        #     self.__set_random_portals(self.num_portals, 2)
 
     def __break_random_walls(self, percent):
         num_cells_to_break = int(round(self.getMazeH*self.getMazeW*percent))
