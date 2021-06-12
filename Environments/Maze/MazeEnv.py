@@ -3,7 +3,7 @@
 File contains: Simple Maze Environment
 TODO:
 -----------------------------------------
-
+=> Add class for rendering the environment
 -----------------------------------------
 ChangeLog
 -----------------------------------------
