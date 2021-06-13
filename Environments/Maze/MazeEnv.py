@@ -187,8 +187,8 @@ class MazeRenderer:
     BLACK = (255, 255, 255)
     RED = (255, 0, 0)
 
-    def __init__(self, maze_name, maze_file_path, maze_size,
-                 screen_size, has_loops=True, num_portals=0,
+    def __init__(self, maze_name='Maze2D', maze_file_path=None, maze_size=(10, 10),
+                 screen_size=(500, 500), has_loops=True, num_portals=0,
                  enable_render=True):
         # Pygame Config
         pygame.init()
@@ -237,7 +237,16 @@ class MazeRenderer:
             self.__draw_endpoint()
 
     def __draw_maze(self):
-        pass
+        line_color = (0, 0, 0, 255)
+        # drawing horizontal lines
+        for y in range(self.maze.getMazeH + 1):
+            pygame.draw.line(self.maze_layer, line_color, (0, y * self.CELL_HEIGHT),
+                             (self.SCREEN_WIDTH, y * self.CELL_HEIGHT))
+
+        # drawing vertical lines
+        for x in range(self.maze.getMazeW + 1):
+            pygame.draw.line(self.maze_layer, line_color, (x * self.CELL_WIDTH, 0),
+                             (x * self.CELL_WIDTH, self.SCREEN_HEIGHT))
 
     def __draw_robot(self):
         pass
@@ -275,3 +284,8 @@ class MazeRenderer:
     @property
     def CELL_HEIGHT(self):
         return float(self.SCREEN_HEIGHT / self.maze.getMazeH)
+
+
+if __name__ == "__main__":
+    env = MazeRenderer()
+
