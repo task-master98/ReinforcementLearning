@@ -249,5 +249,29 @@ class MazeRenderer:
         pass
 
     @property
+    def maze(self):
+        return self.__maze
+
+    @property
     def entrance(self):
         return self.__start_pt
+
+    @property
+    def SCREEN_SIZE(self):
+        return tuple(self.__screen_size)
+
+    @property
+    def SCREEN_WIDTH(self):
+        return int(self.SCREEN_SIZE[0])
+
+    @property
+    def SCREEN_HEIGHT(self):
+        return int(self.SCREEN_SIZE[1])
+
+    @property
+    def CELL_WIDTH(self):
+        return float(self.SCREEN_WIDTH / self.maze.getMazeW)
+
+    @property
+    def CELL_HEIGHT(self):
+        return float(self.SCREEN_HEIGHT / self.maze.getMazeH)
