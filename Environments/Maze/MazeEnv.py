@@ -180,3 +180,74 @@ class Maze:
             raise ValueError('File Does Not Exist')
         else:
             return np.load(file_path, allow_pickle=False, fix_imports=True)
+
+
+class MazeRenderer:
+    WHITE = (0, 0, 0)
+    BLACK = (255, 255, 255)
+    RED = (255, 0, 0)
+
+    def __init__(self, maze_name, maze_file_path, maze_size,
+                 screen_size, has_loops=True, num_portals=0,
+                 enable_render=True):
+        # Pygame Config
+        pygame.init()
+        pygame.display.set_caption(maze_name)
+        self.clock = pygame.time.Clock()
+        self.__game_over = False
+        self.__enable_render = enable_render
+
+        if maze_file_path is None:
+            self.__maze = Maze(maze_size=maze_size, has_loops=has_loops, num_portals=num_portals)
+        else:
+            if not os.path.exists(maze_file_path):
+                raise FileNotFoundError
+            else:
+                self.__maze = Maze(maze_cells=Maze.load_maze(maze_file_path))
+
+        self.maze_size = self.__maze.maze_size
+        if self.__enable_render:
+            self.screen = pygame.display.set_mode(screen_size)
+            self.__screen_size = tuple(map(sum, zip(screen_size, (-1, -1))))
+
+        # Maze Start point
+        self.__start_pt = np.zeros(2, dtype=int)
+        # Maze End Point
+        self.__end_pt = np.array(self.__screen_size)
+        # Initialise Agent Position
+        self.__robot = self.entrance
+
+        if self.__enable_render:
+            self.background = pygame.Surface(self.screen.get_size()).convert()
+            self.background.fill(self.BLACK)
+
+            self.maze_layer = pygame.Surface(self.screen.get_size()).convert_alpha()
+            self.maze_layer.fill((0, 0, 0, 0,))
+
+            # Show the maze
+            self.__draw_maze()
+
+            # Show the agent
+            self.__draw_robot()
+
+            # Show the entrance
+            self.__draw_entrance()
+
+            # Show the end point
+            self.__draw_endpoint()
+
+    def __draw_maze(self):
+        pass
+
+    def __draw_robot(self):
+        pass
+
+    def __draw_entrance(self):
+        pass
+
+    def __draw_endpoint(self):
+        pass
+
+    @property
+    def entrance(self):
+        return self.__start_pt
