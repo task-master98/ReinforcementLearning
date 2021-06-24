@@ -346,6 +346,17 @@ class MazeRenderer:
                     self.__game_over = True
                     self.quit_game()
 
+    def update(self, mode='human'):
+        try:
+            img_output = self.__view_update(mode)
+            self.__controller_update()
+        except Exception as e:
+            self.__game_over = True
+            self.quit_game()
+            raise e
+        else:
+            return img_output
+
     @property
     def maze(self):
         return self.__maze
