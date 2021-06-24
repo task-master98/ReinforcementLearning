@@ -330,6 +330,14 @@ class MazeRenderer:
                 pygame.display.flip()
         return np.flipud(np.rot90(pygame.surfarray.array3d(pygame.display.get_surface())))
 
+    def quit_game(self):
+        try:
+            self.__game_over = True
+            if self.__enable_render:
+                pygame.display.quit()
+            pygame.quit()
+        except Exception:
+            pass
 
     @property
     def maze(self):
