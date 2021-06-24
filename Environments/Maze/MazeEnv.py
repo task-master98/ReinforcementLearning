@@ -262,6 +262,14 @@ class MazeRenderer:
     def __draw_endpoint(self, color=(0, 0, 150), transparency=255):
         self.__color_cell(self.__end_pt, color, transparency)
 
+    def __color_cell(self, cell, color, transparency):
+        x = int(cell[0]*self.CELL_WIDTH + 0.5 + 1)
+        y = int(cell[1]*self.CELL_HEIGHT + 0.5 + 1)
+        w = int(self.CELL_WIDTH + 0.5 - 1)
+        h = int(self.CELL_HEIGHT + 0.5 - 1)
+
+        pygame.draw.rect(self.maze_layer, color + (transparency, ), (x, y, w, h))
+
     @property
     def maze(self):
         return self.__maze
