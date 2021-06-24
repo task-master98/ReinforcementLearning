@@ -256,11 +256,11 @@ class MazeRenderer:
         r = int(min(self.CELL_WIDTH, self.CELL_HEIGHT)/5 + 0.5)
         pygame.draw.circle(self.maze_layer, color + (transparency,), (x, y), r)
 
-    def __draw_entrance(self):
-        pass
+    def __draw_entrance(self, color=(0, 0, 150), transparency=255):
+        self.__color_cell(self.__start_pt, color, transparency)
 
-    def __draw_endpoint(self):
-        pass
+    def __draw_endpoint(self, color=(0, 0, 150), transparency=255):
+        self.__color_cell(self.__end_pt, color, transparency)
 
     @property
     def maze(self):
