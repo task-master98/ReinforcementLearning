@@ -339,6 +339,13 @@ class MazeRenderer:
         except Exception:
             pass
 
+    def __controller_update(self):
+        if not self.__game_over:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.__game_over = True
+                    self.quit_game()
+
     @property
     def maze(self):
         return self.__maze
