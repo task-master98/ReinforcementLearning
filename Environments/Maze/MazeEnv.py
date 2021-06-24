@@ -258,6 +258,28 @@ class MazeRenderer:
                         dirs += dir
                 self.__cover_walls(x, y, dirs)
 
+    def __cover_walls(self, x, y, dirs, color=(0, 0, 255, 15)):
+        dx = x + self.CELL_WIDTH
+        dy = y + self.CELL_HEIGHT
+
+        for dir in dirs:
+            if dir == "S":
+                head = (dx + 1, dy + self.CELL_HEIGHT)
+                tail = (dx - 1 + self.CELL_WIDTH, dy + self.CELL_HEIGHT)
+            elif dir == "N":
+                head = (dx + 1, dy)
+                tail = (dx + self.CELL_WIDTH - 1, dy)
+            elif dir == "E":
+                head = (dx + self.CELL_WIDTH, dy + 1)
+                tail = (dx + self.CELL_WIDTH, dy + self.CELL_HEIGHT - 1)
+            elif dir == "W":
+                head = (dx, dy + 1)
+                tail = (dx, dy + self.CELL_HEIGHT - 1)
+            else:
+                raise ValueError("Invalid Direction")
+
+            pygame.draw.line(self.maze_layer, color, head, tail)
+
     def __draw_robot(self, color=(0, 0, 150), transparency=255):
         if not self.__enable_render:
             return
