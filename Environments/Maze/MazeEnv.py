@@ -311,6 +311,12 @@ class MazeRenderer:
             # draw the robot again
             self.__draw_robot(transparency=255)
 
+    def reset_robot(self):
+        self.__draw_robot(transparency=0)
+        self.__robot = np.zeros(2, dtype=int)
+        self.__draw_robot(transparency=255)
+
+
 
 
     @property
