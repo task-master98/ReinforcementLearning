@@ -248,6 +248,16 @@ class MazeRenderer:
             pygame.draw.line(self.maze_layer, line_color, (x * self.CELL_WIDTH, 0),
                              (x * self.CELL_WIDTH, self.SCREEN_HEIGHT))
 
+        # breaking the walls
+        for x in range(len(self.maze.maze_cells)):
+            for y in range(len(self.maze.maze_cells[x])):
+                walls_status = self.maze.get_walls_status(self.maze.maze_cells[x, y])
+                dirs = ""
+                for dir, open in walls_status.items():
+                    if open:
+                        dirs += dir
+                self.__cover_walls(x, y, dirs)
+
     def __draw_robot(self, color=(0, 0, 150), transparency=255):
         if not self.__enable_render:
             return
