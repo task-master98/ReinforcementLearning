@@ -302,6 +302,17 @@ class MazeRenderer:
 
         pygame.draw.rect(self.maze_layer, color + (transparency, ), (x, y, w, h))
 
+    def move_robot(self, dir):
+        if self.__maze.is_open(self.__robot, dir):
+            # update the drawing
+            self.__draw_robot(transparency=0)
+            # change robot position
+            self.__robot += np.array(self.__maze.DIRECTIONS[dir])
+            # draw the robot again
+            self.__draw_robot(transparency=255)
+
+
+
     @property
     def maze(self):
         return self.__maze
