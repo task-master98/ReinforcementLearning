@@ -248,8 +248,13 @@ class MazeRenderer:
             pygame.draw.line(self.maze_layer, line_color, (x * self.CELL_WIDTH, 0),
                              (x * self.CELL_WIDTH, self.SCREEN_HEIGHT))
 
-    def __draw_robot(self):
-        pass
+    def __draw_robot(self, color=(0, 0, 150), transparency=255):
+        if not self.__enable_render:
+            return
+        x = int(self.__robot[0]*self.CELL_WIDTH + self.CELL_WIDTH*0.5 + 0.5)
+        y = int(self.__robot[1]*self.CELL_HEIGHT + self.CELL_HEIGHT*0.5 + 0.5)
+        r = int(min(self.CELL_WIDTH, self.CELL_HEIGHT)/5 + 0.5)
+        pygame.draw.circle(self.maze_layer, color + (transparency,), (x, y), r)
 
     def __draw_entrance(self):
         pass
