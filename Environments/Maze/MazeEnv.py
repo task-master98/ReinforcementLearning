@@ -316,7 +316,19 @@ class MazeRenderer:
         self.__robot = np.zeros(2, dtype=int)
         self.__draw_robot(transparency=255)
 
+    def __view_update(self, mode='human'):
+        if not self.__game_over:
+            self.__draw_entrance()
+            self.__draw_endpoint()
+            self.__draw_robot()
 
+            # update the screen
+            self.screen.blit(self.background, (0, 0))
+            self.screen.blit(self.maze_layer, (0, 0))
+
+            if mode == "human":
+                pygame.display.flip()
+        return np.flipud(np.rot90(pygame.surfarray.array3d(pygame.display.get_surface())))
 
 
     @property
